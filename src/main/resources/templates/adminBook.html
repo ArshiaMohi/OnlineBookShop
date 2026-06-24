@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ارشیا کتاب</title>
+
+    <style>
+
+        :root {
+            --primary: #4b3f2f;
+            --secondary: #8d6e63;
+            --bg: #f7f4ef;
+            --text: #333;
+            --white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            background: #0f172a;
+            color: white;
+            padding: 14px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logo {
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            .margin: auto;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: #4f46e5;
+            padding: 14px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .3s;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ff1111;
+        }
+
+        .btn-edit {
+            background: #46e556;
+        }
+
+        .btn:hover {
+            background: #3730a3;
+        }
+
+        .books h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .book-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 760px) {
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+        }
+
+        .admin {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .admin-header h1 {
+            color: #0d0b2a;
+        }
+
+        table {
+            margin: 40px auto;
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        th {
+            background: #1f2b49;;
+            font-weight: normal;
+            color: white;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .book-img {
+            width: 50px;
+            height: 70px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<header>
+
+    <div class="navbar">
+        <div class="logo">ارشیا کتاب</div>
+        <ul>
+            <li><a href="http://localhost:8081">خانه</a></li>
+            <li><a href="http://localhost:8081/bookList">کتاب‌ها</a></li>
+            <li><a href="#">درباره ما</a></li>
+            <li><a href="#">تماس با ما</a></li>
+        </ul>
+    </div>
+
+</header>
+
+<section class="admin">
+    <div class="admin-header">
+        <h1>مدیریت کتاب ها</h1>
+        <a href="http://localhost:8081/admin/book/save" class="btn">افزودن کتاب جدید</a>
+    </div>
+
+    <div class="table-wrapper">
+
+        <table>
+            <thead>
+            <tr>
+                <th>تصویر</th>
+                <th>نام کتاب</th>
+                <th>نویسنده</th>
+                <th>قیمت (تومان)</th>
+                <th>عملیات</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+<script>
+
+    function loadProducts() {
+        fetch("http://localhost:8081/books")
+            .then(res => res.json())
+            .then(res => {
+                for (let i = 0; i < res.length; i++) {
+                    convertJsonToCart(res[i]);
+                }
+            })
+    }
+
+    function convertJsonToCart(book) {
+        const row = `<tr>
+                <td> <img src="${book.imageAddress}" class="book-img"> </td>
+                <td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>${book.price}</td>
+                <td>
+                    <div class="action">
+                        <a href="http://localhost:8081/admin/book/update?id=${book.id}" class="btn btn-edit">ویرایش</a>
+                        <button onclick="deleteBook(${book.id})" class="btn btn-delete">پاک کردن</button>
+                    </div>
+                </td>
+            </tr>`;
+        document.getElementById("tbody").innerHTML += row;
+    }
+
+    loadProducts();
+
+    function deleteBook(id) {
+        fetch("http://localhost:8081/books/delete/" + id);
+        document.getElementById("tbody").innerHTML = "";
+        loadProducts();
+    }
+
+</script>
+
+</body>
+</html>

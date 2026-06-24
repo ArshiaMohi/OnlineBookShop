@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایجاد حساب کاربری</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c365b, #3e65ce);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Tahoma, sans-serif;
+        }
+
+        .card {
+            background: #fff;
+            width: 100%;
+            max-width: 380px;
+            padding: 32px 26px;
+            border-radius: 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
+            text-align: center;
+        }
+
+        .card h2 {
+            margin-bottom: 22px;
+            font-size: 22px;
+        }
+
+        .input-box {
+            margin-bottom: 14px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .input-box input:focus {
+            border-color: #4c7dff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4c7dff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        button:hover {
+            background: #365ff5;
+        }
+
+        .login-link {
+            margin-top: 14px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #4c7dff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 26px 20px;
+            }
+
+            .card h2 {
+                font-size: 20px;
+            }
+
+            .input-box input {
+                padding: 11px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .card {
+                max-width: 420px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>ایجاد حساب کاربری</h2>
+
+    <form action="http://localhost:8081/save/user" method="post">
+        <div class="input-box">
+            <input type="text" placeholder="نام کامل" name="username" required>
+        </div>
+
+        <div class="input-box">
+            <input type="email" placeholder="ایمیل" name="email" required>
+        </div>
+
+        <div class="input-box">
+            <input type="password" placeholder="رمز عبور" name="password" required>
+        </div>
+
+        <div class="input-box">
+            <input type="password" placeholder="تکرار رمز عبور" required>
+        </div>
+
+        <div class="input-box">
+            <input type="text" placeholder="آدرس" name="address" required>
+        </div>
+
+        <button type="submit">ثبت نام</button>
+
+        <div class="login-link">
+            قبلاً حساب دارید؟ <a href="http://localhost:8081/login">ورود</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
