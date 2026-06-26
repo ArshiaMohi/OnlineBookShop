@@ -1,13 +1,20 @@
 package com.example.project.dto;
 
 import com.example.project.model.Book;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class BookSaveDto {
     private int id;
+    @NotBlank(message = "Title is required")
     private String title;
+    @NotBlank(message = "Author is required")
     private String author;
+    @Size(max = 200, message = "Description can't be exceed 200 characters")
     private String description;
     private String imageAddress;
+    @Positive(message = "Price must be greater than 0")
     private int price;
 
     public int getId() {

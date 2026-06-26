@@ -3,6 +3,7 @@ package com.example.project.controller;
 import com.example.project.dto.BookSaveDto;
 import com.example.project.model.Book;
 import com.example.project.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class BookController {
     }
 
     @PostMapping("/update")
-    public Book update(@RequestBody BookSaveDto bookSaveDto) {
+    public Book update(@Valid @RequestBody BookSaveDto bookSaveDto) {
         Book book = bookSaveDto.convert();
         bookService.update(book);
         return book;
