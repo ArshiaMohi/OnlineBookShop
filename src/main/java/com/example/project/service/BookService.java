@@ -1,6 +1,7 @@
 package com.example.project.service;
 
 import com.example.project.model.Book;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface BookService {
     Book findById(int id);
 
     List<Book> findAll();
+
+    Page<Book> getBooks(int page, int size);
 }

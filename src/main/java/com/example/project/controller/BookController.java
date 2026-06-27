@@ -6,6 +6,8 @@ import com.example.project.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +31,8 @@ public class BookController {
 
     @Operation(summary = "Get all books")
     @GetMapping()
-    public List<Book> findAll() {
-        return bookService.findAll();
+    public Page<Book> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        return bookService.getBooks(page, size);
     }
 
     @Operation(summary = "Update a book")
