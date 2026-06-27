@@ -34,7 +34,7 @@ public class BookController {
     }
 
     @Operation(summary = "Update a book")
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Book update(@Valid @RequestBody BookSaveDto bookSaveDto) {
         Book book = bookSaveDto.convert();
         bookService.update(book);
@@ -42,7 +42,7 @@ public class BookController {
     }
 
     @Operation(summary = "Delete a book")
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         Book book = bookService.findById(id);
         bookService.delete(book);
