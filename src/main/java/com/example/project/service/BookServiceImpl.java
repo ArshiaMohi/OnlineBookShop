@@ -1,5 +1,6 @@
 package com.example.project.service;
 
+import com.example.project.exception.BookNotFoundException;
 import com.example.project.model.Book;
 import com.example.project.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findById(int id) {
-        return bookRepository.findById(id).orElse(null);
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book not found"));
     }
 
     @Override
