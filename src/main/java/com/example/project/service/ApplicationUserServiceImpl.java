@@ -1,5 +1,6 @@
 package com.example.project.service;
 
+import com.example.project.config.SecurityConfig;
 import com.example.project.model.ApplicationUser;
 import com.example.project.repository.ApplicationUserRepository;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,17 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
 
     private final ApplicationUserRepository applicationUserRepository;
 
-    public ApplicationUserServiceImpl(ApplicationUserRepository applicationUserRepository) {
+    private final SecurityConfig securityConfig;
+
+    public ApplicationUserServiceImpl(ApplicationUserRepository applicationUserRepository, SecurityConfig securityConfig) {
         this.applicationUserRepository = applicationUserRepository;
+        this.securityConfig = securityConfig;
     }
 
 
     @Override
     public void save(ApplicationUser user) {
+        user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
         applicationUserRepository.save(user);
     }
 

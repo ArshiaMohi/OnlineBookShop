@@ -3,6 +3,7 @@ package com.example.project.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -38,7 +39,7 @@ public class ApplicationUser {
         this.id = id;
     }
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     @NotBlank(message = "Username must be entered")
     public String getUsername() {
         return username;
@@ -48,7 +49,8 @@ public class ApplicationUser {
         this.username = username;
     }
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Email is required")
     @Email
     public String getEmail() {
         return email;
@@ -85,6 +87,8 @@ public class ApplicationUser {
     }
 
     @NotBlank(message = "Password must be entered")
+    @Size(min = 8)
+    @Column(nullable = false)
     public String getPassword() {
         return password;
     }
