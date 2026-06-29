@@ -59,4 +59,9 @@ public class BookController {
     public List<Book> sortBooks(){
         return bookService.findAll(Sort.by("price"));
     }
+
+    @GetMapping("/filter")
+    public List<Book> filterBooks(@RequestParam int minPrice, @RequestParam int maxPrice){
+        return bookService.filterByPrice(minPrice, maxPrice);
+    }
 }

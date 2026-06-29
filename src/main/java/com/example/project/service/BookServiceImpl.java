@@ -58,4 +58,9 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAll(Sort sort){
         return bookRepository.findAll(sort);
     }
+
+    @Override
+    public List<Book> filterByPrice(int minPrice, int maxPrice){
+        return bookRepository.findByPriceBetween(minPrice, maxPrice);
+    }
 }

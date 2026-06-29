@@ -19,6 +19,8 @@ public interface BookService {
 
     List<Book> findAll(Sort sort);
     Page<Book> getBooks(int page, int size);
+    List<Book> searchByTitle(String title);
 
-    public List<Book> searchByTitle(String title);
+    List<Book> filterByPrice(int minPrice, int maxPrice);
+
 }
