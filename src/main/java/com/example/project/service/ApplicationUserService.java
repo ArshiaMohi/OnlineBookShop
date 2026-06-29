@@ -18,6 +18,4 @@ public interface ApplicationUserService {
     ApplicationUser findById(int id);
 
     List<ApplicationUser> findAll();
-
-    ApplicationUser register(RegisterRequest request);
 }

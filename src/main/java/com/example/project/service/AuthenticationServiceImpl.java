@@ -2,8 +2,10 @@ package com.example.project.service;
 
 import com.example.project.dto.LoginRequest;
 import com.example.project.dto.LoginResponse;
+import com.example.project.dto.RegisterRequest;
 import com.example.project.exception.UserNotFoundException;
 import com.example.project.model.ApplicationUser;
+import com.example.project.model.Role;
 import com.example.project.repository.ApplicationUserRepository;
 import com.example.project.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +38,17 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 
         String token = jwtService.generateToken(user);
         return new LoginResponse(token);
+    }
+
+    @Override
+    public ApplicationUser register(RegisterRequest request){
+        ApplicationUser user = new ApplicationUser();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.USER);
+
+        return applicationUserRepository.save(user);
     }
 
 

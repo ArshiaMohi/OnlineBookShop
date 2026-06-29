@@ -49,11 +49,4 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public ApplicationUser convert() {
-        ApplicationUser applicationUser = new ApplicationUser();
-        applicationUser.setEmail(this.email);
-        applicationUser.setUsername(this.username);
-        applicationUser.setPassword(this.password);
-        return applicationUser;
-    }
 }
