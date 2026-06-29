@@ -31,6 +31,6 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ApplicationUser register(@Valid @RequestBody RegisterRequest request) {
-        return applicationUserService.register(request);
+        return authenticationService.register(request);
     }
 }
