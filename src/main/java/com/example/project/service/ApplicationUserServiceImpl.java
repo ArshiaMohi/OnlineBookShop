@@ -1,8 +1,10 @@
 package com.example.project.service;
 
 import com.example.project.config.SecurityConfig;
+import com.example.project.exception.UsernameNotFoundException;
 import com.example.project.model.ApplicationUser;
 import com.example.project.repository.ApplicationUserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,17 +14,17 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
 
     private final ApplicationUserRepository applicationUserRepository;
 
-    private final SecurityConfig securityConfig;
+    private final PasswordEncoder passwordEncoder;
 
-    public ApplicationUserServiceImpl(ApplicationUserRepository applicationUserRepository, SecurityConfig securityConfig) {
+    public ApplicationUserServiceImpl(ApplicationUserRepository applicationUserRepository, SecurityConfig securityConfig, PasswordEncoder passwordEncoder) {
         this.applicationUserRepository = applicationUserRepository;
-        this.securityConfig = securityConfig;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
     @Override
     public void save(ApplicationUser user) {
-        user.setPassword(securityConfig.passwordEncoder().encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
     }
 
@@ -33,12 +35,13 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
 
     @Override
     public void update(ApplicationUser user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
     }
 
     @Override
-    public ApplicationUser findByUsernameAndPassword(String username, String password) {
-        return applicationUserRepository.findByUsernameAndPassword(username, password);
+    public ApplicationUser findByUsername(String username) {
+        return applicationUserRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 
     @Override

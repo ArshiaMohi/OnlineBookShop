@@ -12,7 +12,7 @@ public interface ApplicationUserService {
 
     void update(ApplicationUser user);
 
-    ApplicationUser findByUsernameAndPassword(String username, String password);
+    ApplicationUser findByUsername(String username);
 
     ApplicationUser findById(int id);
 

@@ -20,7 +20,7 @@ public class ApplicationUserController {
         return applicationUserService.findById(id);
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         ApplicationUser applicationUser = applicationUserService.findById(id);
         applicationUserService.delete(applicationUser);

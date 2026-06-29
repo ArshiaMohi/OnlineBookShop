@@ -80,7 +80,7 @@ public class PageController {
 
     @PostMapping("/login")
     public String login(String username, String password) {
-        ApplicationUser applicationUser = applicationUserService.findByUsernameAndPassword(username, password);
+        ApplicationUser applicationUser = applicationUserService.findByUsername(username);
 
         if (applicationUser == null){
             return "login";
