@@ -1,12 +1,13 @@
 package com.example.project.service;
 
+import com.example.project.dto.RegisterRequest;
 import com.example.project.model.ApplicationUser;
 
 import java.util.List;
 
 public interface ApplicationUserService {
 
-    void save(ApplicationUser user);
+    void save(RegisterRequest request);
 
     void delete(ApplicationUser user);
 
@@ -17,4 +18,6 @@ public interface ApplicationUserService {
     ApplicationUser findById(int id);
 
     List<ApplicationUser> findAll();
+
+    ApplicationUser register(RegisterRequest request);
 }

@@ -1,6 +1,7 @@
 package com.example.project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,6 +28,8 @@ public class Book {
         this.id = id;
     }
 
+    @Column(nullable = false)
+    @NotBlank(message = "Title must be entered")
     public String getTitle() {
         return title;
     }
@@ -35,6 +38,8 @@ public class Book {
         this.title = title;
     }
 
+    @Column(nullable = false)
+    @NotBlank(message = "Author must be entered")
     public String getAuthor() {
         return author;
     }
@@ -52,6 +57,8 @@ public class Book {
         this.description = description;
     }
 
+    @Column(nullable = false)
+    @NotBlank(message = "price must be entered")
     public int getPrice() {
         return price;
     }

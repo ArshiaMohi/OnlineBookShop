@@ -2,14 +2,17 @@ package com.example.project.controller;
 
 import com.example.project.dto.ApplicationUserSaveDto;
 import com.example.project.dto.BookSaveDto;
+import com.example.project.dto.RegisterRequest;
 import com.example.project.model.ApplicationUser;
 import com.example.project.model.Book;
 import com.example.project.model.Role;
 import com.example.project.service.ApplicationUserService;
 import com.example.project.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class PageController {
@@ -65,12 +68,9 @@ public class PageController {
         return "register";
     }
 
-    @PostMapping("/save/user")
-    public String save(ApplicationUserSaveDto applicationUserSaveDto) {
-        ApplicationUser applicationUser = applicationUserSaveDto.convert();
-        applicationUser.setRole(Role.USER);
-        applicationUserService.save(applicationUser);
-        return "home";
+    @PostMapping("/register")
+    public ApplicationUser register(@Valid @RequestBody RegisterRequest request) {
+        return applicationUserService.register(request);
     }
 
     @GetMapping("/login")

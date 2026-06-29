@@ -36,7 +36,7 @@ public class BookController {
     }
 
     @Operation(summary = "Update a book")
-    @PutMapping("/update")
+    @PutMapping()
     public Book update(@Valid @RequestBody BookSaveDto bookSaveDto) {
         Book book = bookSaveDto.convert();
         bookService.update(book);

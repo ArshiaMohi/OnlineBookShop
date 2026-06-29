@@ -15,7 +15,7 @@ public class ApplicationUserController {
         this.applicationUserService = applicationUserService;
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public ApplicationUser findById(@PathVariable int id) {
         return applicationUserService.findById(id);
     }
