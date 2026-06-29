@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,5 +53,10 @@ public class BookController {
     @GetMapping("/search")
     public List<Book> search(@RequestParam String title){
         return bookService.searchByTitle(title);
+    }
+
+    @GetMapping("/sorted")
+    public List<Book> sortBooks(){
+        return bookService.findAll(Sort.by("price"));
     }
 }

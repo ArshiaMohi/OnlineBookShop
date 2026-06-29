@@ -2,6 +2,7 @@ package com.example.project.service;
 
 import com.example.project.model.Book;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public interface BookService {
 
     List<Book> findAll();
 
+    List<Book> findAll(Sort sort);
     Page<Book> getBooks(int page, int size);
 
     public List<Book> searchByTitle(String title);

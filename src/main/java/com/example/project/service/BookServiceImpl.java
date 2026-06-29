@@ -6,6 +6,7 @@ import com.example.project.repository.BookRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,5 +52,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> searchByTitle(String title){
         return bookRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public List<Book> findAll(Sort sort){
+        return bookRepository.findAll(sort);
     }
 }
