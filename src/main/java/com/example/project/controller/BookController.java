@@ -49,4 +49,9 @@ public class BookController {
         Book book = bookService.findById(id);
         bookService.delete(book);
     }
+
+    @GetMapping("/search")
+    public List<Book> search(@RequestParam String title){
+        return bookService.searchByTitle(title);
+    }
 }

@@ -48,4 +48,8 @@ public class BookServiceImpl implements BookService {
         Pageable pageable = PageRequest.of(page, size);
         return bookRepository.findAll(pageable);
     }
+    @Override
+    public List<Book> searchByTitle(String title){
+        return bookRepository.findByTitleContainingIgnoreCase(title);
+    }
 }

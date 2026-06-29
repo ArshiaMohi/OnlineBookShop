@@ -17,4 +17,6 @@ public interface BookService {
     List<Book> findAll();
 
     Page<Book> getBooks(int page, int size);
+
+    public List<Book> searchByTitle(String title);
 }
