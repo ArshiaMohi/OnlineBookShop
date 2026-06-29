@@ -32,6 +32,7 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
             throw new DuplicateUsername("Username already exists");
         }
         ApplicationUser user = request.convert();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
     }
 
@@ -64,6 +65,9 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
     @Override
     public ApplicationUser register(RegisterRequest request){
         ApplicationUser applicationUser = request.convert();
+        applicationUser.setPassword(
+                passwordEncoder.encode(applicationUser.getPassword())
+        );
         applicationUser.setRole(Role.USER);
 
         return applicationUserRepository.save(applicationUser);

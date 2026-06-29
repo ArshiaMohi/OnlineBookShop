@@ -5,17 +5,23 @@ import com.example.project.dto.LoginResponse;
 import com.example.project.exception.UserNotFoundException;
 import com.example.project.model.ApplicationUser;
 import com.example.project.repository.ApplicationUserRepository;
+import com.example.project.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthenticationServiceImpl implements AuthenticationService{
 
     private final PasswordEncoder passwordEncoder;
 
     private final ApplicationUserRepository applicationUserRepository;
 
-    public AuthenticationServiceImpl(PasswordEncoder passwordEncoder, ApplicationUserRepository applicationUserRepository) {
+    private final JwtService jwtService;
+
+    public AuthenticationServiceImpl(PasswordEncoder passwordEncoder, ApplicationUserRepository applicationUserRepository, JwtService jwtService) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserRepository = applicationUserRepository;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -27,7 +33,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())){
             throw new RuntimeException("Wrong password");
         }
-        return new LoginResponse("LOGIN_SUCCESS");
+
+        String token = jwtService.generateToken(user);
+        return new LoginResponse(token);
     }
 
 

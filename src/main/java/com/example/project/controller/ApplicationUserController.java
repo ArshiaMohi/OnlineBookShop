@@ -1,7 +1,12 @@
 package com.example.project.controller;
 
+import com.example.project.dto.LoginRequest;
+import com.example.project.dto.LoginResponse;
+import com.example.project.dto.RegisterRequest;
 import com.example.project.model.ApplicationUser;
 import com.example.project.service.ApplicationUserService;
+import com.example.project.service.AuthenticationService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

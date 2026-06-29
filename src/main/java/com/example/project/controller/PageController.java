@@ -1,12 +1,10 @@
 package com.example.project.controller;
 
-import com.example.project.dto.ApplicationUserSaveDto;
-import com.example.project.dto.BookSaveDto;
-import com.example.project.dto.RegisterRequest;
+import com.example.project.dto.*;
 import com.example.project.model.ApplicationUser;
 import com.example.project.model.Book;
-import com.example.project.model.Role;
 import com.example.project.service.ApplicationUserService;
+import com.example.project.service.AuthenticationService;
 import com.example.project.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -68,25 +66,9 @@ public class PageController {
         return "register";
     }
 
-    @PostMapping("/register")
-    public ApplicationUser register(@Valid @RequestBody RegisterRequest request) {
-        return applicationUserService.register(request);
-    }
-
     @GetMapping("/login")
     public String login(){
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(String username, String password) {
-        ApplicationUser applicationUser = applicationUserService.findByUsername(username);
-
-        if (applicationUser == null){
-            return "login";
-        }else{
-            return "home";
-        }
     }
 
     @GetMapping("/admin/users")
