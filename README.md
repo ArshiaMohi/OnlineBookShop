@@ -136,7 +136,7 @@ http://localhost:8081/swagger-ui/index.html
 ### Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/OnlineBookShop.git
+git clone https://github.com/ArshiaMohi/OnlineBookShop.git
 ```
 
 ### Configure Database
