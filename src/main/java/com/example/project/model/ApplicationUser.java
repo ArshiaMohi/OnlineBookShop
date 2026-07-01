@@ -119,7 +119,6 @@ public class ApplicationUser implements UserDetails {
     @Override
     @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        System.out.println("Role = " + role);
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
