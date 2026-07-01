@@ -1,6 +1,6 @@
 package com.example.project.service;
 
-import com.example.project.config.SecurityConfig;
+
 import com.example.project.dto.RegisterRequest;
 import com.example.project.exception.DuplicateUsername;
 import com.example.project.exception.UserNotFoundException;

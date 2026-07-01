@@ -6,11 +6,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class ApplicationUser {
+public class ApplicationUser implements UserDetails {
     private int id;
     private String username;
     private String email;
@@ -41,8 +46,33 @@ public class ApplicationUser {
 
     @Column(unique = true, nullable = false)
     @NotBlank(message = "Username must be entered")
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
@@ -86,9 +116,17 @@ public class ApplicationUser {
         this.updateTime = updateTime;
     }
 
+    @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println("Role = " + role);
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
     @NotBlank(message = "Password must be entered")
     @Size(min = 8)
     @Column(nullable = false)
+    @Override
     public String getPassword() {
         return password;
     }
